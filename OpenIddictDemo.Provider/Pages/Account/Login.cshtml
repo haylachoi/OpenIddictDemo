@@ -1,0 +1,49 @@
+﻿@page
+@model OpenIddictDemo.Provider.Pages.Account.LoginModel
+@{
+    ViewData["Title"] = "Đăng nhập";
+}
+
+<h2>Đăng nhập</h2>
+
+<form method="post">
+    <div>
+        <label asp-for="Username">Tên đăng nhập</label>
+        <input asp-for="Username" class="form-control" value="admin" />
+        <span asp-validation-for="Username" class="text-danger"></span>
+    </div>
+
+    <div>
+        <label asp-for="Password">Mật khẩu</label>
+        <input asp-for="Password" type="password" class="form-control" value="Admin@123456789" />
+        <span asp-validation-for="Password" class="text-danger"></span>
+    </div>
+
+    <button type="submit">Đăng nhập</button>
+
+    @{
+        var returnUrl = Model.ReturnUrl ?? "/";
+        var encodedReturnUrl = System.Net.WebUtility.UrlEncode(returnUrl);
+    }
+    <a class="btn btn-outline-dark" href="/challenge/github?returnUrl=@encodedReturnUrl">
+        Đăng nhập với GitHub
+    </a>
+</form>
+
+@if (!ModelState.IsValid)
+{
+    <div class="text-danger">
+        <ul>
+            @foreach (var err in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+            {
+                <li>@err.ErrorMessage</li>
+            }
+        </ul>
+    </div>
+}
+
+
+@* validate in client side *@
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

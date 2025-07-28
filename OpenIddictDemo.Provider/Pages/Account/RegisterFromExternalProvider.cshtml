@@ -1,0 +1,21 @@
+﻿@page
+@model OpenIddictDemo.Provider.Pages.Account.RegisterFromExternalProviderModel
+@{
+    ViewData["Title"] = "Đăng ký với tên người dùng";
+}
+
+<h2>Nhập tên người dùng</h2>
+
+<form method="post">
+    <div class="form-group">
+        <label asp-for="Input.Username"></label>
+        <input asp-for="Input.Username" class="form-control" />
+        <span asp-validation-for="Input.Username" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Đăng ký</button>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

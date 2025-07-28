@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="../build/OpenIddictDemo.ApiService.props" />
+</Project>

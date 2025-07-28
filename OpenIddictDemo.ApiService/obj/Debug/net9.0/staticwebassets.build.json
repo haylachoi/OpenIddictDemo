@@ -1,0 +1,12 @@
+{
+  "Version": 1,
+  "Hash": "d09i4LWcr8xBVO0wsPC9x1OFoyp3oQQhekVq+ULzwBE=",
+  "Source": "OpenIddictDemo.ApiService",
+  "BasePath": "_content/OpenIddictDemo.ApiService",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": [],
+  "Endpoints": []
+}
