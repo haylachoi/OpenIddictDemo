@@ -1,17 +1,17 @@
 var builder = DistributedApplication.CreateBuilder(args);
 
 // Add PostgreSQL database
-var postgres = builder.AddPostgres("postgres-test");
+// var postgres = builder.AddPostgres("postgres-test");
 
 // .WithLifetime(ContainerLifetime.Persistent);
 
-var database = postgres.AddDatabase("openiddictdb");
+// var database = postgres.AddDatabase("openiddictdb");
 
 // Add the OpenIddict Provider service
-var provider = builder
-    .AddProject<Projects.OpenIddictDemo_Provider>("provider")
-    .WithReference(database)
-    .WaitFor(database);
+var provider = builder.AddProject<Projects.OpenIddictDemo_Provider>("provider");
+
+// .WithReference(database)
+// .WaitFor(database);
 
 var apiService = builder
     .AddProject<Projects.OpenIddictDemo_ApiService>("apiservice")

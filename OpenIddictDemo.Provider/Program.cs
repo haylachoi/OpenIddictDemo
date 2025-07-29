@@ -71,6 +71,8 @@ builder
             .SetAuthorizationEndpointUris("/connect/authorize")
             .SetTokenEndpointUris("/connect/token")
             .SetIntrospectionEndpointUris("/connect/introspect")
+            // .SetDeviceAuthorizationEndpointUris("/connect/device")
+            // .SetEndUserVerificationEndpointUris("/connect/verify")
             .SetUserInfoEndpointUris("/connect/userinfo")
             .SetEndSessionEndpointUris("/connect/logout")
             .SetRevocationEndpointUris("/connect/revoke");
@@ -104,6 +106,7 @@ builder
         // options.DisableResourceValidation();
 
         options
+            // .AllowDeviceAuthorizationFlow()
             .AllowAuthorizationCodeFlow()
             .AllowClientCredentialsFlow()
             .AllowPasswordFlow()
@@ -115,6 +118,7 @@ builder
         // Register the ASP.NET Core host and configure the ASP.NET Core-specific options.
         options
             .UseAspNetCore()
+            // .EnableEndUserVerificationEndpointPassthrough()
             // custom endpoint hoạt động nếu enable passthrough, nếu ko enable thì phải tạo event handler
             // enable passthrough cũng cho phép request đi qua các pipeline
             .EnableAuthorizationEndpointPassthrough()

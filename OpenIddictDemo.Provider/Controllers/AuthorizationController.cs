@@ -110,16 +110,12 @@ public class AuthorizationController : Controller
             principal.SetScopes(request.GetScopes());
             return SignIn(principal, OpenIddictServerAspNetCoreDefaults.AuthenticationScheme);
         }
-        if (request.IsAuthorizationCodeGrantType())
+        if (request.IsAuthorizationCodeGrantType() || request.IsRefreshTokenGrantType())
         {
             // Retrieve the claims principal stored in the authorization code
-            var result =
-                await HttpContext.AuthenticateAsync(
-                    OpenIddictServerAspNetCoreDefaults.AuthenticationScheme
-                )
-                ?? throw new InvalidOperationException(
-                    "The authorization code is no longer valid."
-                );
+            var result = await HttpContext.AuthenticateAsync(
+                OpenIddictServerAspNetCoreDefaults.AuthenticationScheme
+            );
 
             if (
                 result is not { Succeeded: true, Principal: not null }
@@ -136,38 +132,12 @@ public class AuthorizationController : Controller
             }
 
             // lấy thông tin có sẵn từ principal
-            var identity = CreateIdentity(result.Principal);
+            var identity = await CreateIdentity(result.Principal, user, GetDestinations);
             var principal = new ClaimsPrincipal(identity);
 
             return SignIn(principal, OpenIddictServerAspNetCoreDefaults.AuthenticationScheme);
         }
 
-        if (request.IsRefreshTokenGrantType())
-        {
-            // refresh token đã được validate trước đó
-            var result = await HttpContext.AuthenticateAsync(
-                OpenIddictServerAspNetCoreDefaults.AuthenticationScheme
-            );
-
-            var user = await GetUserFromPrincipalAsync(result.Principal);
-            if (user == null)
-            {
-                return Forbid(Errors.InvalidGrant, "The refresh token is no longer valid.");
-            }
-
-            // Ensure the user is still allowed to sign in.
-            if (!await _signInManager.CanSignInAsync(user))
-            {
-                return Forbid(Errors.InvalidGrant, "The user is no longer allowed to sign in.");
-            }
-
-            var identity = await CreateIdentity(user, request.GetScopes(), GetDestinations);
-
-            return SignIn(
-                new ClaimsPrincipal(identity),
-                OpenIddictServerAspNetCoreDefaults.AuthenticationScheme
-            );
-        }
         throw new NotImplementedException("The specified grant is not implemented.");
     }
 
@@ -459,7 +429,11 @@ public class AuthorizationController : Controller
         return identity;
     }
 
-    private ClaimsIdentity CreateIdentity(ClaimsPrincipal principal)
+    private async Task<ClaimsIdentity> CreateIdentity(
+        ClaimsPrincipal principal,
+        ApplicationUser user,
+        Func<Claim, IEnumerable<string>> selector
+    )
     {
         var identity = new ClaimsIdentity(
             principal.Claims,
@@ -467,6 +441,16 @@ public class AuthorizationController : Controller
             nameType: Claims.Name,
             roleType: Claims.Role
         );
+
+        // override lại nếu user đã đổi thông tin
+        identity
+            .SetClaim(Claims.Subject, await _userManager.GetUserIdAsync(user))
+            .SetClaim(Claims.Email, await _userManager.GetEmailAsync(user))
+            .SetClaim(Claims.Name, await _userManager.GetUserNameAsync(user))
+            .SetClaim(Claims.PreferredUsername, await _userManager.GetUserNameAsync(user))
+            .SetClaims(Claims.Role, [.. (await _userManager.GetRolesAsync(user))]);
+
+        identity.SetDestinations(selector);
 
         return identity;
     }

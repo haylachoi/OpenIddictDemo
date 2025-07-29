@@ -1,4 +1,3 @@
-using Microsoft.EntityFrameworkCore;
 using OpenIddict.Abstractions;
 using OpenIddictDemo.Provider.Data;
 using static OpenIddict.Abstractions.OpenIddictConstants;
@@ -45,8 +44,6 @@ public class Worker : IHostedService
                     },
                     RedirectUris =
                     {
-                        // new Uri("https://localhost:7023/signin-oidc"),
-                        // new Uri("http://localhost:5236/signin-oidc"),
                         new Uri("https://localhost:7023"),
                         new Uri("https://localhost:7274/callback/login"),
                         new Uri("https://localhost:7274/signin-oidc"),
