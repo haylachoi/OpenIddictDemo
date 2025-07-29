@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "xVedFEkZTHbi0AqGGGvOZTlJEaZfTTx+dzipbzX1g+g=",
+  "Hash": "yEda1W4c516GDP01q5k7YI8ArFpBu4L7saaf/TuQxv8=",
   "Source": "OpenIddictDemo.Provider",
   "BasePath": "_content/OpenIddictDemo.Provider",
   "Mode": "Default",
@@ -3461,6 +3461,27 @@
       "OriginalItemSpec": "/home/haylachoi/workspaces/test/OpenIddictDemo/OpenIddictDemo.Provider/wwwroot/lib/bootstrap/dist/css/bootstrap-utilities.rtl.css"
     },
     {
+      "Identity": "/home/haylachoi/workspaces/test/OpenIddictDemo/OpenIddictDemo.Provider/obj/Debug/net9.0/compressed/uf1gndxrpp-mql276gzu1.gz",
+      "SourceId": "OpenIddictDemo.Provider",
+      "SourceType": "Discovered",
+      "ContentRoot": "/home/haylachoi/workspaces/test/OpenIddictDemo/OpenIddictDemo.Provider/obj/Debug/net9.0/compressed/",
+      "BasePath": "_content/OpenIddictDemo.Provider",
+      "RelativePath": "README#[.{fingerprint=mql276gzu1}]?.md.gz",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Alternative",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "/home/haylachoi/workspaces/test/OpenIddictDemo/OpenIddictDemo.Provider/wwwroot/README.md",
+      "AssetTraitName": "Content-Encoding",
+      "AssetTraitValue": "gzip",
+      "Fingerprint": "42y7goka93",
+      "Integrity": "1CfAypCsh3T5g44OR9Xf5tFmR6fhlDs74PaHv3strpo=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "/home/haylachoi/workspaces/test/OpenIddictDemo/OpenIddictDemo.Provider/wwwroot/README.md"
+    },
+    {
       "Identity": "/home/haylachoi/workspaces/test/OpenIddictDemo/OpenIddictDemo.Provider/obj/Debug/net9.0/compressed/uocis9wxbx-lzl9nlhx6b.gz",
       "SourceId": "Microsoft.AspNetCore.Identity.UI",
       "SourceType": "Package",
@@ -5349,6 +5370,27 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot/lib/jquery/LICENSE.txt"
+    },
+    {
+      "Identity": "/home/haylachoi/workspaces/test/OpenIddictDemo/OpenIddictDemo.Provider/wwwroot/README.md",
+      "SourceId": "OpenIddictDemo.Provider",
+      "SourceType": "Discovered",
+      "ContentRoot": "/home/haylachoi/workspaces/test/OpenIddictDemo/OpenIddictDemo.Provider/wwwroot/",
+      "BasePath": "_content/OpenIddictDemo.Provider",
+      "RelativePath": "README#[.{fingerprint}]?.md",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "mql276gzu1",
+      "Integrity": "ciaFBG19iZ2AsRfVKKjc87ls+sjo0OVr6DatOmBz+/8=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/README.md"
     }
   ],
   "Endpoints": [
@@ -33034,6 +33076,304 @@
         {
           "Name": "integrity",
           "Value": "sha256-/eQ5YNbGq4WQuRdB5biyPqiioWJ0LinJ8XHMVHz6BIw="
+        }
+      ]
+    },
+    {
+      "Route": "README.md",
+      "AssetFile": "/home/haylachoi/workspaces/test/OpenIddictDemo/OpenIddictDemo.Provider/obj/Debug/net9.0/compressed/uf1gndxrpp-mql276gzu1.gz",
+      "Selectors": [
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip",
+          "Quality": "0.008130081301"
+        }
+      ],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "122"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"1CfAypCsh3T5g44OR9Xf5tFmR6fhlDs74PaHv3strpo=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 29 Jul 2025 11:33:41 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/markdown"
+        },
+        {
+          "Name": "ETag",
+          "Value": "W/\"ciaFBG19iZ2AsRfVKKjc87ls+sjo0OVr6DatOmBz+/8=\""
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-ciaFBG19iZ2AsRfVKKjc87ls+sjo0OVr6DatOmBz+/8="
+        }
+      ]
+    },
+    {
+      "Route": "README.md",
+      "AssetFile": "/home/haylachoi/workspaces/test/OpenIddictDemo/OpenIddictDemo.Provider/wwwroot/README.md",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "112"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/markdown"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"ciaFBG19iZ2AsRfVKKjc87ls+sjo0OVr6DatOmBz+/8=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 29 Jul 2025 11:33:41 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-ciaFBG19iZ2AsRfVKKjc87ls+sjo0OVr6DatOmBz+/8="
+        }
+      ]
+    },
+    {
+      "Route": "README.md.gz",
+      "AssetFile": "/home/haylachoi/workspaces/test/OpenIddictDemo/OpenIddictDemo.Provider/obj/Debug/net9.0/compressed/uf1gndxrpp-mql276gzu1.gz",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "122"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/markdown"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"1CfAypCsh3T5g44OR9Xf5tFmR6fhlDs74PaHv3strpo=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 29 Jul 2025 11:33:41 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-1CfAypCsh3T5g44OR9Xf5tFmR6fhlDs74PaHv3strpo="
+        }
+      ]
+    },
+    {
+      "Route": "README.mql276gzu1.md",
+      "AssetFile": "/home/haylachoi/workspaces/test/OpenIddictDemo/OpenIddictDemo.Provider/obj/Debug/net9.0/compressed/uf1gndxrpp-mql276gzu1.gz",
+      "Selectors": [
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip",
+          "Quality": "0.008130081301"
+        }
+      ],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "122"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"1CfAypCsh3T5g44OR9Xf5tFmR6fhlDs74PaHv3strpo=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 29 Jul 2025 11:33:41 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/markdown"
+        },
+        {
+          "Name": "ETag",
+          "Value": "W/\"ciaFBG19iZ2AsRfVKKjc87ls+sjo0OVr6DatOmBz+/8=\""
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "mql276gzu1"
+        },
+        {
+          "Name": "label",
+          "Value": "README.md"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-ciaFBG19iZ2AsRfVKKjc87ls+sjo0OVr6DatOmBz+/8="
+        }
+      ]
+    },
+    {
+      "Route": "README.mql276gzu1.md",
+      "AssetFile": "/home/haylachoi/workspaces/test/OpenIddictDemo/OpenIddictDemo.Provider/wwwroot/README.md",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "112"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/markdown"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"ciaFBG19iZ2AsRfVKKjc87ls+sjo0OVr6DatOmBz+/8=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 29 Jul 2025 11:33:41 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "mql276gzu1"
+        },
+        {
+          "Name": "label",
+          "Value": "README.md"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-ciaFBG19iZ2AsRfVKKjc87ls+sjo0OVr6DatOmBz+/8="
+        }
+      ]
+    },
+    {
+      "Route": "README.mql276gzu1.md.gz",
+      "AssetFile": "/home/haylachoi/workspaces/test/OpenIddictDemo/OpenIddictDemo.Provider/obj/Debug/net9.0/compressed/uf1gndxrpp-mql276gzu1.gz",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "122"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/markdown"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"1CfAypCsh3T5g44OR9Xf5tFmR6fhlDs74PaHv3strpo=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 29 Jul 2025 11:33:41 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "mql276gzu1"
+        },
+        {
+          "Name": "label",
+          "Value": "README.md.gz"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-1CfAypCsh3T5g44OR9Xf5tFmR6fhlDs74PaHv3strpo="
         }
       ]
     }

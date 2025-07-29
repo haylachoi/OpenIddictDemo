@@ -1,3 +1,6 @@
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -7,18 +10,6 @@ namespace OpenIddictDemo.Provider.Pages.Account;
 
 public class LoginModel : PageModel
 {
-    private readonly SignInManager<ApplicationUser> _signInManager;
-    private readonly UserManager<ApplicationUser> _userManager;
-
-    public LoginModel(
-        SignInManager<ApplicationUser> signInManager,
-        UserManager<ApplicationUser> userManager
-    )
-    {
-        _signInManager = signInManager;
-        _userManager = userManager;
-    }
-
     [BindProperty]
     public string Username { get; set; } = string.Empty;
 
@@ -36,36 +27,30 @@ public class LoginModel : PageModel
 
     public async Task<IActionResult> OnPostAsync()
     {
-        if (!ModelState.IsValid)
+        if (Username != Constant.Username || Password != Constant.Password)
+        {
+            ModelState.AddModelError(string.Empty, "Email or password is invalid");
             return Page();
+        }
 
-        var user = await _userManager.FindByNameAsync(Username);
+        var claims = new List<Claim>
+        {
+            new(ClaimTypes.Email, Constant.Email),
+            new(ClaimTypes.NameIdentifier, Username),
+        };
 
-        var result = await _signInManager.PasswordSignInAsync(
-            Username,
-            Password,
-            isPersistent: false, // remember me
-            lockoutOnFailure: true // cho phép khóa nếu sai nhiều lần
+        var principal = new ClaimsPrincipal(
+            new List<ClaimsIdentity>
+            {
+                new(claims, CookieAuthenticationDefaults.AuthenticationScheme),
+            }
         );
 
-        if (result.Succeeded)
-        {
-            return !string.IsNullOrEmpty(ReturnUrl)
-                ? Redirect(ReturnUrl)
-                : RedirectToPage("/Index");
-        }
+        await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
 
-        if (result.IsLockedOut)
+        if (!string.IsNullOrEmpty(ReturnUrl))
         {
-            ModelState.AddModelError(string.Empty, "Tài khoản đã bị khóa. Vui lòng thử lại sau.");
-        }
-        else if (result.IsNotAllowed)
-        {
-            ModelState.AddModelError(string.Empty, "Tài khoản chưa được kích hoạt.");
-        }
-        else
-        {
-            ModelState.AddModelError(string.Empty, "Tên đăng nhập hoặc mật khẩu không đúng.");
+            return Redirect(ReturnUrl);
         }
 
         return Page();

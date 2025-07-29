@@ -32,10 +32,6 @@ build_property.EnableCodeStyleSeverity =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXMvQWNjb3VudC9Mb2dpbi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/haylachoi/workspaces/test/OpenIddictDemo/OpenIddictDemo.Provider/Pages/Account/Register.cshtml]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXMvQWNjb3VudC9SZWdpc3Rlci5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
 [/home/haylachoi/workspaces/test/OpenIddictDemo/OpenIddictDemo.Provider/Pages/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXMvSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 

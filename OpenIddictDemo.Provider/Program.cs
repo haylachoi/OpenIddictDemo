@@ -1,8 +1,7 @@
-using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 using OpenIddictDemo.Provider;
 using OpenIddictDemo.Provider.Data;
-using OpenIddictDemo.Provider.Models;
 using OpenIddictDemo.Provider.Services;
 using Quartz;
 using static OpenIddict.Abstractions.OpenIddictConstants;
@@ -16,17 +15,6 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseInMemoryDatabase("test");
     options.UseOpenIddict();
 });
-
-builder
-    .Services.AddIdentity<ApplicationUser, IdentityRole<Guid>>(options =>
-    {
-        options.User.RequireUniqueEmail = true;
-        options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5); // Bị khóa trong 5 phút
-        options.Lockout.MaxFailedAccessAttempts = 2; // Sau 2 lần sai sẽ bị khóa
-        options.Lockout.AllowedForNewUsers = true; // Cho phép áp dụng cho cả user mới
-    })
-    .AddEntityFrameworkStores<ApplicationDbContext>()
-    .AddDefaultTokenProviders();
 
 // OpenIddict offers native integration with Quartz.NET to perform scheduled tasks
 // (like pruning orphaned authorizations/tokens from the database) at regular intervals.
@@ -121,12 +109,17 @@ builder
     });
 
 // Add authentication services
-builder.Services.AddAuthentication(options =>
-{
-    options.DefaultAuthenticateScheme = IdentityConstants.ApplicationScheme;
-    options.DefaultChallengeScheme = IdentityConstants.ApplicationScheme;
-    options.DefaultSignInScheme = IdentityConstants.ApplicationScheme;
-});
+builder
+    .Services.AddAuthentication(options =>
+    {
+        options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+        options.DefaultChallengeScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+        options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+    })
+    .AddCookie(options =>
+    {
+        options.LoginPath = "/Account/Login";
+    });
 
 builder.Services.AddControllers();
 
@@ -139,8 +132,6 @@ builder.Services.AddHostedService<Worker>();
 builder.Services.AddRazorPages();
 
 var app = builder.Build();
-
-await app.Services.SeedAsync();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

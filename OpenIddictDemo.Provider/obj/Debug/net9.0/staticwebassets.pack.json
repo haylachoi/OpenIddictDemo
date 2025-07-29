@@ -5,6 +5,10 @@
       "PackagePath": "staticwebassets/OpenIddictDemo.Provider.pv1c525rvb.bundle.scp.css"
     },
     {
+      "Id": "/home/haylachoi/workspaces/test/OpenIddictDemo/OpenIddictDemo.Provider/wwwroot/README.md",
+      "PackagePath": "staticwebassets/README.md"
+    },
+    {
       "Id": "/home/haylachoi/workspaces/test/OpenIddictDemo/OpenIddictDemo.Provider/wwwroot/css/site.css",
       "PackagePath": "staticwebassets/css/site.css"
     },

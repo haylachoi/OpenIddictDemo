@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("OpenIddictDemo.Provider")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f2d3ba3ad749ae61209904ed0b964ae2d152ad56")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f214e8c1bd026bf5198615d0771b8d9815a34e21")]
 [assembly: System.Reflection.AssemblyProductAttribute("OpenIddictDemo.Provider")]
 [assembly: System.Reflection.AssemblyTitleAttribute("OpenIddictDemo.Provider")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

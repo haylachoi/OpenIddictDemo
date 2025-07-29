@@ -8832,6 +8832,304 @@
       ]
     },
     {
+      "Route": "README.md",
+      "AssetFile": "README.md.gz",
+      "Selectors": [
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip",
+          "Quality": "0.008130081301"
+        }
+      ],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "122"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/markdown"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"1CfAypCsh3T5g44OR9Xf5tFmR6fhlDs74PaHv3strpo=\""
+        },
+        {
+          "Name": "ETag",
+          "Value": "W/\"ciaFBG19iZ2AsRfVKKjc87ls+sjo0OVr6DatOmBz+/8=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 29 Jul 2025 11:33:41 GMT"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-ciaFBG19iZ2AsRfVKKjc87ls+sjo0OVr6DatOmBz+/8="
+        }
+      ]
+    },
+    {
+      "Route": "README.md",
+      "AssetFile": "README.md",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "112"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/markdown"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"ciaFBG19iZ2AsRfVKKjc87ls+sjo0OVr6DatOmBz+/8=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 29 Jul 2025 11:33:41 GMT"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-ciaFBG19iZ2AsRfVKKjc87ls+sjo0OVr6DatOmBz+/8="
+        }
+      ]
+    },
+    {
+      "Route": "README.md.gz",
+      "AssetFile": "README.md.gz",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "122"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/markdown"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"1CfAypCsh3T5g44OR9Xf5tFmR6fhlDs74PaHv3strpo=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 29 Jul 2025 11:33:41 GMT"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-1CfAypCsh3T5g44OR9Xf5tFmR6fhlDs74PaHv3strpo="
+        }
+      ]
+    },
+    {
+      "Route": "README.mql276gzu1.md",
+      "AssetFile": "README.md.gz",
+      "Selectors": [
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip",
+          "Quality": "0.008130081301"
+        }
+      ],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "122"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/markdown"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"1CfAypCsh3T5g44OR9Xf5tFmR6fhlDs74PaHv3strpo=\""
+        },
+        {
+          "Name": "ETag",
+          "Value": "W/\"ciaFBG19iZ2AsRfVKKjc87ls+sjo0OVr6DatOmBz+/8=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 29 Jul 2025 11:33:41 GMT"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "mql276gzu1"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-ciaFBG19iZ2AsRfVKKjc87ls+sjo0OVr6DatOmBz+/8="
+        },
+        {
+          "Name": "label",
+          "Value": "README.md"
+        }
+      ]
+    },
+    {
+      "Route": "README.mql276gzu1.md",
+      "AssetFile": "README.md",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "112"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/markdown"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"ciaFBG19iZ2AsRfVKKjc87ls+sjo0OVr6DatOmBz+/8=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 29 Jul 2025 11:33:41 GMT"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "mql276gzu1"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-ciaFBG19iZ2AsRfVKKjc87ls+sjo0OVr6DatOmBz+/8="
+        },
+        {
+          "Name": "label",
+          "Value": "README.md"
+        }
+      ]
+    },
+    {
+      "Route": "README.mql276gzu1.md.gz",
+      "AssetFile": "README.md.gz",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "122"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/markdown"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"1CfAypCsh3T5g44OR9Xf5tFmR6fhlDs74PaHv3strpo=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 29 Jul 2025 11:33:41 GMT"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "mql276gzu1"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-1CfAypCsh3T5g44OR9Xf5tFmR6fhlDs74PaHv3strpo="
+        },
+        {
+          "Name": "label",
+          "Value": "README.md.gz"
+        }
+      ]
+    },
+    {
       "Route": "css/site.css",
       "AssetFile": "css/site.css.gz",
       "Selectors": [

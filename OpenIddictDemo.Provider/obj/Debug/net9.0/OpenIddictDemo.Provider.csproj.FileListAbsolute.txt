@@ -334,3 +334,4 @@
 /home/haylachoi/workspaces/test/OpenIddictDemo/OpenIddictDemo.Provider/obj/Debug/net9.0/compressed/v0zgfp0y55-87fc7y1x7t.gz
 /home/haylachoi/workspaces/test/OpenIddictDemo/OpenIddictDemo.Provider/obj/Debug/net9.0/compressed/yfc7ypekbg-mlv21k5csn.gz
 /home/haylachoi/workspaces/test/OpenIddictDemo/OpenIddictDemo.Provider/obj/Debug/net9.0/OpenIddictDemo.Provider.sourcelink.json
+/home/haylachoi/workspaces/test/OpenIddictDemo/OpenIddictDemo.Provider/obj/Debug/net9.0/compressed/uf1gndxrpp-mql276gzu1.gz

@@ -768,5 +768,17 @@
       <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"pv1c525rvb"},{"Name":"integrity","Value":"sha256-hREF1Pv4\u002BhwDRKHdnTcvzv0Aa/lCQhAH2a0UdxQCIyc="},{"Name":"label","Value":"_content/OpenIddictDemo.Provider/OpenIddictDemo.Provider.bundle.scp.css"}]]]></EndpointProperties>
       <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"1092"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022hREF1Pv4\u002BhwDRKHdnTcvzv0Aa/lCQhAH2a0UdxQCIyc=\u0022"},{"Name":"Last-Modified","Value":"Thu, 24 Jul 2025 16:17:52 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/OpenIddictDemo.Provider/README.md">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\README.md'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-ciaFBG19iZ2AsRfVKKjc87ls\u002Bsjo0OVr6DatOmBz\u002B/8="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"112"},{"Name":"Content-Type","Value":"text/markdown"},{"Name":"ETag","Value":"\u0022ciaFBG19iZ2AsRfVKKjc87ls\u002Bsjo0OVr6DatOmBz\u002B/8=\u0022"},{"Name":"Last-Modified","Value":"Tue, 29 Jul 2025 11:33:41 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/OpenIddictDemo.Provider/README.mql276gzu1.md">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\README.md'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"mql276gzu1"},{"Name":"integrity","Value":"sha256-ciaFBG19iZ2AsRfVKKjc87ls\u002Bsjo0OVr6DatOmBz\u002B/8="},{"Name":"label","Value":"_content/OpenIddictDemo.Provider/README.md"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"112"},{"Name":"Content-Type","Value":"text/markdown"},{"Name":"ETag","Value":"\u0022ciaFBG19iZ2AsRfVKKjc87ls\u002Bsjo0OVr6DatOmBz\u002B/8=\u0022"},{"Name":"Last-Modified","Value":"Tue, 29 Jul 2025 11:33:41 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
   </ItemGroup>
 </Project>

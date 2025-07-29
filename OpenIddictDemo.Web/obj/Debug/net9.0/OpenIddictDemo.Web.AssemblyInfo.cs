@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("OpenIddictDemo.Web")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+2b3bcc951c92e2a223679b72b8cc8ece3ef125f0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f214e8c1bd026bf5198615d0771b8d9815a34e21")]
 [assembly: System.Reflection.AssemblyProductAttribute("OpenIddictDemo.Web")]
 [assembly: System.Reflection.AssemblyTitleAttribute("OpenIddictDemo.Web")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

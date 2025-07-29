@@ -2,6 +2,7 @@ using System.Collections.Immutable;
 using System.Security.Claims;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
@@ -19,23 +20,17 @@ public class AuthorizationController : Controller
     private readonly IOpenIddictApplicationManager _applicationManager;
     private readonly IOpenIddictAuthorizationManager _authorizationManager;
     private readonly IOpenIddictScopeManager _scopeManager;
-    private readonly UserManager<ApplicationUser> _userManager;
-    private readonly SignInManager<ApplicationUser> _signInManager;
 
     public AuthorizationController(
         IOpenIddictApplicationManager applicationManager,
         IOpenIddictAuthorizationManager authorizationManager,
-        IOpenIddictScopeManager scopeManager,
-        UserManager<ApplicationUser> userManager,
-        SignInManager<ApplicationUser> signInManager
+        IOpenIddictScopeManager scopeManager
     )
         : base()
     {
         _applicationManager = applicationManager;
         _authorizationManager = authorizationManager;
         _scopeManager = scopeManager;
-        _userManager = userManager;
-        _signInManager = signInManager;
     }
 
     [HttpPost("token"), Produces("application/json")]
@@ -83,24 +78,11 @@ public class AuthorizationController : Controller
 
         if (request.IsPasswordGrantType())
         {
-            var user = await _userManager.FindByNameAsync(request.Username!);
-            if (user == null)
+            if (request.Username != Constant.Username || request.Password != Constant.Password)
             {
                 return Forbid(Errors.InvalidGrant, "The username/password couple is invalid.");
             }
-
-            var result = await _signInManager.CheckPasswordSignInAsync(
-                user,
-                request.Password!,
-                lockoutOnFailure: true
-            );
-
-            if (!result.Succeeded)
-            {
-                return Forbid(Errors.InvalidGrant, "The username/password couple is invalid.");
-            }
-
-            var identity = await CreateIdentity(user, request.GetScopes(), GetDestinations);
+            var identity = CreateIdentity(request.Username, Constant.Email, request.GetScopes());
             var principal = new ClaimsPrincipal(identity);
 
             principal.SetScopes(request.GetScopes());
@@ -117,21 +99,17 @@ public class AuthorizationController : Controller
                     "The authorization code is no longer valid."
                 );
 
-            if (
-                result is not { Succeeded: true, Principal: not null }
-                || await GetUserFromPrincipalAsync(result.Principal) is not { } user
-            )
+            if (result is not { Succeeded: true, Principal: not null })
             {
                 return Forbid(Errors.InvalidToken, "The token is no longer valid.");
             }
 
-            // Ensure the user is still allowed to sign in.
-            if (!await _signInManager.CanSignInAsync(user))
+            var username = result.Principal.GetClaim(Claims.Username);
+            if (username != Constant.Username)
             {
-                return Forbid(Errors.InvalidGrant, "The user is no longer allowed to sign in.");
+                return Forbid(Errors.InvalidToken, "The token is no longer valid.");
             }
 
-            // lấy thông tin có sẵn từ principal
             var identity = CreateIdentity(result.Principal);
             var principal = new ClaimsPrincipal(identity);
 
@@ -145,19 +123,13 @@ public class AuthorizationController : Controller
                 OpenIddictServerAspNetCoreDefaults.AuthenticationScheme
             );
 
-            var user = await GetUserFromPrincipalAsync(result.Principal);
-            if (user == null)
+            var username = result.Principal.GetClaim(Claims.Username);
+            if (username != Constant.Username)
             {
                 return Forbid(Errors.InvalidGrant, "The refresh token is no longer valid.");
             }
 
-            // Ensure the user is still allowed to sign in.
-            if (!await _signInManager.CanSignInAsync(user))
-            {
-                return Forbid(Errors.InvalidGrant, "The user is no longer allowed to sign in.");
-            }
-
-            var identity = await CreateIdentity(user, request.GetScopes(), GetDestinations);
+            var identity = CreateIdentity(result.Principal);
 
             return SignIn(
                 new ClaimsPrincipal(identity),
@@ -174,7 +146,9 @@ public class AuthorizationController : Controller
             HttpContext.GetOpenIddictServerRequest()
             ?? throw new InvalidOperationException("OpenID Connect request không hợp lệ.");
 
-        var result = await HttpContext.AuthenticateAsync();
+        var result = await HttpContext.AuthenticateAsync(
+            CookieAuthenticationDefaults.AuthenticationScheme
+        );
         if (
             result is not { Succeeded: true }
             || (
@@ -213,10 +187,6 @@ public class AuthorizationController : Controller
             );
         }
 
-        var user =
-            await GetUserFromPrincipalAsync(result.Principal)
-            ?? throw new InvalidOperationException("The user details cannot be retrieved.");
-
         var application =
             await _applicationManager.FindByClientIdAsync(request.ClientId)
             ?? throw new InvalidOperationException(
@@ -230,11 +200,50 @@ public class AuthorizationController : Controller
             return Forbid(Errors.InvalidClient, "Only implicit consent clients are supported");
         }
 
-        var identity = await CreateIdentity(user, request.GetScopes(), GetDestinations);
+        var identity = CreateIdentity(Constant.Username, Constant.Email, request.GetScopes());
+
         return SignIn(
             new ClaimsPrincipal(identity),
             OpenIddictServerAspNetCoreDefaults.AuthenticationScheme
         );
+    }
+
+    private ClaimsIdentity CreateIdentity(ClaimsPrincipal principal)
+    {
+        var identity = new ClaimsIdentity(
+            principal.Claims,
+            TokenValidationParameters.DefaultAuthenticationType,
+            Claims.Name,
+            Claims.Role
+        );
+
+        return identity;
+    }
+
+    private ClaimsIdentity CreateIdentity(
+        string username,
+        string email,
+        ImmutableArray<string>? scopes
+    )
+    {
+        var identity = new ClaimsIdentity(
+            TokenValidationParameters.DefaultAuthenticationType,
+            Claims.Name,
+            Claims.Role
+        );
+
+        identity.SetClaim(Claims.Username, username);
+        // bát buộc phải có subject
+        identity.SetClaim(Claims.Subject, username);
+        identity.SetClaim(Claims.Name, username);
+        identity.SetClaim(Claims.Email, email);
+
+        identity.SetScopes(scopes);
+        identity.SetResources("account");
+
+        identity.SetDestinations(GetDestinations);
+
+        return identity;
     }
 
     [HttpPost("logout"), HttpGet("logout")]
@@ -243,11 +252,7 @@ public class AuthorizationController : Controller
         await HttpContext.SignOutAsync();
 
         return SignOut(
-            authenticationSchemes:
-            [
-                OpenIddictServerAspNetCoreDefaults.AuthenticationScheme,
-                IdentityConstants.ApplicationScheme,
-            ],
+            authenticationSchemes: [OpenIddictServerAspNetCoreDefaults.AuthenticationScheme],
             properties: new AuthenticationProperties { RedirectUri = "/" }
         );
     }
@@ -264,76 +269,6 @@ public class AuthorizationController : Controller
                 }
             )
         );
-
-    // dùng email để lấy user sẽ dễ test khi dùng với in memory db, vì thông tin user sẽ dc seed lại khi run app và id sẽ khác nhau
-    private Task<ApplicationUser?> GetUserFromPrincipalAsync(ClaimsPrincipal principal)
-    {
-        var email =
-            principal.GetClaim(ClaimTypes.Email)
-            ?? principal.GetClaim(Claims.Email)
-            ?? throw new InvalidOperationException("The user details cannot be retrieved.");
-
-        var user = _userManager.FindByEmailAsync(email);
-
-        return user;
-    }
-
-    private async Task<ClaimsIdentity> CreateIdentity(
-        ApplicationUser user,
-        ImmutableArray<string>? scopes,
-        Func<Claim, IEnumerable<string>>? selector
-    )
-    {
-        var identity = new ClaimsIdentity(
-            authenticationType: TokenValidationParameters.DefaultAuthenticationType,
-            //claim type nào sẽ được dùng làm username khi gọi identity.Name
-            nameType: Claims.Name,
-            // claim type nào sẽ được dùng làm role khi gọi identity.IsInRole(...)
-            roleType: Claims.Role
-        );
-
-        var userIdTask = _userManager.GetUserIdAsync(user);
-        var emailTask = _userManager.GetEmailAsync(user);
-        var userNameTask = _userManager.GetUserNameAsync(user);
-        var rolesTask = _userManager.GetRolesAsync(user);
-
-        await Task.WhenAll(userIdTask, emailTask, userNameTask, rolesTask);
-
-        identity
-            .SetClaim(Claims.Subject, userIdTask.Result)
-            .SetClaim(Claims.Email, emailTask.Result)
-            .SetClaim(Claims.Name, userNameTask.Result)
-            .SetClaim(Claims.PreferredUsername, userNameTask.Result)
-            .SetClaim("signatrue", user.Signatrue)
-            .SetClaims(Claims.Role, [.. rolesTask.Result]);
-
-        if (scopes is not null)
-        {
-            identity.SetScopes(scopes);
-            identity.SetResources(
-                await _scopeManager.ListResourcesAsync(identity.GetScopes()).ToListAsync()
-            );
-        }
-
-        if (selector is not null)
-        {
-            identity.SetDestinations(selector);
-        }
-
-        return identity;
-    }
-
-    private ClaimsIdentity CreateIdentity(ClaimsPrincipal principal)
-    {
-        var identity = new ClaimsIdentity(
-            principal.Claims,
-            authenticationType: TokenValidationParameters.DefaultAuthenticationType,
-            nameType: Claims.Name,
-            roleType: Claims.Role
-        );
-
-        return identity;
-    }
 
     private static IEnumerable<string> GetDestinations(Claim claim)
     {
