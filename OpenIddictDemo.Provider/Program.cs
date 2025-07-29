@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
-using OpenIddictDemo.Provider;
 using OpenIddictDemo.Provider.Data;
 using OpenIddictDemo.Provider.Services;
 using Quartz;
@@ -136,7 +135,6 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    await app.MigrateDbContextAsync<ApplicationDbContext>();
     app.MapOpenApi();
 }
 

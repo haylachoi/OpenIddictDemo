@@ -1,11 +1,10 @@
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using OpenIddictDemo.Provider.Models;
 
 namespace OpenIddictDemo.Provider.Data;
 
-public class ApplicationDbContext : IdentityDbContext<ApplicationUser, IdentityRole<Guid>, Guid>
+public class ApplicationDbContext : DbContext
 {
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
         : base(options) { }
@@ -15,6 +14,6 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser, IdentityR
         base.OnModelCreating(builder);
 
         // Configure the OpenIddict entities
-        builder.UseOpenIddict<Guid>();
+        builder.UseOpenIddict();
     }
 }
