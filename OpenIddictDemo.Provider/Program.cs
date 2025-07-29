@@ -75,6 +75,7 @@ builder
             .SetEndSessionEndpointUris("/connect/logout")
             .SetRevocationEndpointUris("/connect/revoke");
 
+        options.RequireProofKeyForCodeExchange();
         // hiển thị trong discovery document.
         options.RegisterScopes(
             "api",

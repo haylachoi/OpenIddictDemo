@@ -12,7 +12,6 @@ using OpenIddict.Server.AspNetCore;
 using OpenIddictDemo.Provider.Helper;
 using OpenIddictDemo.Provider.Models;
 using static OpenIddict.Abstractions.OpenIddictConstants;
-using static OpenIddict.Client.WebIntegration.OpenIddictClientWebIntegrationConstants;
 
 namespace OpenIddictDemo.Provider.Controllers;
 

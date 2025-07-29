@@ -81,7 +81,7 @@ builder
         var uri = builder.Configuration["services:provider:https:0"];
         options.Authority = uri;
         options.ClientId = "web-client";
-        options.ClientSecret = "web-client-secret";
+        options.UsePkce = true;
 
         // options.Scope.Clear();
         //options.Scope.Add(OpenIdConnectScope.OpenIdProfile);
@@ -129,6 +129,7 @@ builder
 
         // nếu là true sẽ tự động map Claims(của OIDC) sang claimType(của asp.net)
         options.MapInboundClaims = false;
+
 
         options.PushedAuthorizationBehavior = PushedAuthorizationBehavior.UseIfAvailable;
 
