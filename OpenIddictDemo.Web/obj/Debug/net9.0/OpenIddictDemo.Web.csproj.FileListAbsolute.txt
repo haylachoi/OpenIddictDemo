@@ -150,3 +150,4 @@
 /home/haylachoi/workspaces/test/OpenIddictDemo/OpenIddictDemo.Web/bin/Debug/net9.0/Microsoft.AspNetCore.Authentication.OpenIdConnect.dll
 /home/haylachoi/workspaces/test/OpenIddictDemo/OpenIddictDemo.Web/bin/Debug/net9.0/Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
 /home/haylachoi/workspaces/test/OpenIddictDemo/OpenIddictDemo.Web/bin/Debug/net9.0/System.IdentityModel.Tokens.Jwt.dll
+/home/haylachoi/workspaces/test/OpenIddictDemo/OpenIddictDemo.Web/obj/Debug/net9.0/OpenIddictDemo.Web.sourcelink.json

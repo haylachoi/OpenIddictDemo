@@ -134,3 +134,4 @@
 /home/haylachoi/workspaces/test/OpenIddictDemo/OpenIddictDemo.AppHost/obj/Debug/net9.0/OpenIddictDemo.AppHost.pdb
 /home/haylachoi/workspaces/test/OpenIddictDemo/OpenIddictDemo.AppHost/obj/Debug/net9.0/OpenIddictDemo.AppHost.genruntimeconfig.cache
 /home/haylachoi/workspaces/test/OpenIddictDemo/OpenIddictDemo.AppHost/obj/Debug/net9.0/ref/OpenIddictDemo.AppHost.dll
+/home/haylachoi/workspaces/test/OpenIddictDemo/OpenIddictDemo.AppHost/obj/Debug/net9.0/OpenIddictDemo.AppHost.sourcelink.json

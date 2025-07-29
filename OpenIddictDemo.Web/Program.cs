@@ -33,7 +33,6 @@ builder
     {
         // Note: the validation handler uses OpenID Connect discovery
         // to retrieve the issuer signing keys used to validate tokens.
-        // options.SetIssuer(new Uri("https://provider"));
         var uri = builder.Configuration["services:provider:https:0"];
         options.SetIssuer(new Uri(uri));
 
@@ -41,14 +40,6 @@ builder
         options.UseIntrospection();
         options.SetClientId("api-client");
         options.SetClientSecret("api-client-secret");
-
-        // Register the encryption credentials. This sample uses a symmetric
-        // encryption key that is shared between the server and the API project.
-        //
-        // Note: in a real world application, this encryption key should be
-        // stored in a safe place (e.g in Azure KeyVault, stored as a secret).
-        // options.AddEncryptionKey(new SymmetricSecurityKey(
-        //     Convert.FromBase64String("DRjd/GnduI3Efzen9V9BvbNUfc/VKgXltV7Kbk9sMkY=")));
 
         // dùng http client để tạo request
         options
@@ -60,10 +51,6 @@ builder
 
         // tương tác với asp.net authentication,...
         options.UseAspNetCore();
-
-        // Enable authorization entry validation, which is required to be able
-        // to reject access tokens retrieved from a revoked authorization code.
-        // options.EnableAuthorizationEntryValidation();
     });
 
 builder

@@ -1,18 +1,14 @@
 using System.Collections.Immutable;
 using System.Security.Claims;
-using System.Web;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using OpenIddict.Abstractions;
 using OpenIddict.Server.AspNetCore;
-using OpenIddictDemo.Provider.Helper;
 using OpenIddictDemo.Provider.Models;
 using static OpenIddict.Abstractions.OpenIddictConstants;
-using static OpenIddict.Client.WebIntegration.OpenIddictClientWebIntegrationConstants;
 
 namespace OpenIddictDemo.Provider.Controllers;
 
@@ -217,12 +213,6 @@ public class AuthorizationController : Controller
             );
         }
 
-        // var providerName = result.Principal.GetClaim(Claims.Private.ProviderName);
-        // if (providerName is not null)
-        // {
-        //     return AcceptExternalLogin(request.GetScopes(), result.Principal);
-        // }
-
         var user =
             await GetUserFromPrincipalAsync(result.Principal)
             ?? throw new InvalidOperationException("The user details cannot be retrieved.");
@@ -233,141 +223,19 @@ public class AuthorizationController : Controller
                 "Details concerning the calling client application cannot be found."
             );
 
-        var authorizations = await _authorizationManager
-            .FindAsync(
-                subject: await _userManager.GetUserIdAsync(user),
-                client: await _applicationManager.GetIdAsync(application),
-                status: Statuses.Valid,
-                type: AuthorizationTypes.Permanent,
-                scopes: request.GetScopes()
-            )
-            .ToListAsync();
-
         var consentType = await _applicationManager.GetConsentTypeAsync(application);
 
-        switch (consentType)
+        if (consentType != ConsentTypes.Implicit)
         {
-            case ConsentTypes.External when authorizations.Count is 0:
-                return Forbid(
-                    Errors.ConsentRequired,
-                    "The logged in user is not allowed to access this client application."
-                );
-
-            // If the consent is implicit or if an authorization was found,
-            // return an authorization response without displaying the consent form.
-            case ConsentTypes.Implicit:
-            case ConsentTypes.External when authorizations.Count is not 0:
-            case ConsentTypes.Explicit
-                when authorizations.Count is not 0 && !request.HasPromptValue(PromptValues.Consent):
-                var identity = await CreateIdentity(user, request.GetScopes(), null);
-
-                // Automatically create a permanent authorization to avoid requiring explicit consent
-                // for future authorization or token requests containing the same scopes.
-                var authorization = authorizations.LastOrDefault();
-                authorization ??= await _authorizationManager.CreateAsync(
-                    identity: identity,
-                    subject: await _userManager.GetUserIdAsync(user),
-                    client: (await _applicationManager.GetIdAsync(application))!,
-                    type: AuthorizationTypes.Permanent,
-                    scopes: identity.GetScopes()
-                );
-
-                identity.SetAuthorizationId(await _authorizationManager.GetIdAsync(authorization));
-                identity.SetDestinations(GetDestinations);
-
-                return SignIn(
-                    new ClaimsPrincipal(identity),
-                    OpenIddictServerAspNetCoreDefaults.AuthenticationScheme
-                );
-
-            // At this point, no authorization was found in the database and an error must be returned
-            // if the client application specified prompt=none in the authorization request.
-            case ConsentTypes.Explicit when request.HasPromptValue(PromptValues.None):
-            case ConsentTypes.Systematic when request.HasPromptValue(PromptValues.None):
-                return Forbid(Errors.ConsentRequired, "Interactive user consent is required.");
-
-            // In every other case, render the consent form.
-            default:
-                var returnUrl = HttpUtility.UrlEncode(Request.Path + Request.QueryString);
-                var consentRedirectUrl = $"/account/consent?returnUrl={returnUrl}";
-
-                return Redirect(consentRedirectUrl);
-        }
-    }
-
-    [Authorize, FormValueRequired("submit.Accept")]
-    [HttpPost("~/connect/authorize"), ValidateAntiForgeryToken]
-    public async Task<IActionResult> Accept()
-    {
-        var request =
-            HttpContext.GetOpenIddictServerRequest()
-            ?? throw new InvalidOperationException(
-                "The OpenID Connect request cannot be retrieved."
-            );
-
-        var user =
-            await GetUserFromPrincipalAsync(User)
-            ?? throw new InvalidOperationException("The user details cannot be retrieved.");
-
-        var application =
-            await _applicationManager.FindByClientIdAsync(request.ClientId!)
-            ?? throw new InvalidOperationException(
-                "Details concerning the calling client application cannot be found."
-            );
-
-        var authorizations = await _authorizationManager
-            .FindAsync(
-                subject: await _userManager.GetUserIdAsync(user),
-                client: await _applicationManager.GetIdAsync(application),
-                status: Statuses.Valid,
-                type: AuthorizationTypes.Permanent,
-                scopes: request.GetScopes()
-            )
-            .ToListAsync();
-
-        // Note: the same check is already made in the other action but is repeated
-        // here to ensure a malicious user can't abuse this POST-only endpoint and
-        // force it to return a valid response without the external authorization.
-        if (
-            authorizations.Count is 0
-            && await _applicationManager.HasConsentTypeAsync(application, ConsentTypes.External)
-        )
-        {
-            return Forbid(
-                Errors.ConsentRequired,
-                "The logged in user is not allowed to access this client application."
-            );
+            return Forbid(Errors.InvalidClient, "Only implicit consent clients are supported");
         }
 
-        var identity = await CreateIdentity(user, request.GetScopes(), null);
-
-        // Automatically create a permanent authorization to avoid requiring explicit consent
-        // for future authorization or token requests containing the same scopes.
-        var authorization = authorizations.LastOrDefault();
-        authorization ??= await _authorizationManager.CreateAsync(
-            identity: identity,
-            subject: await _userManager.GetUserIdAsync(user),
-            client: (await _applicationManager.GetIdAsync(application))!,
-            type: AuthorizationTypes.Permanent,
-            scopes: identity.GetScopes()
-        );
-
-        // AuthorizationId giúp hệ thống truy vết xem token này thuộc về authorization nào, refresh token, revoke token theo session,...
-        identity.SetAuthorizationId(await _authorizationManager.GetIdAsync(authorization));
-        identity.SetDestinations(GetDestinations);
-
+        var identity = await CreateIdentity(user, request.GetScopes(), GetDestinations);
         return SignIn(
             new ClaimsPrincipal(identity),
             OpenIddictServerAspNetCoreDefaults.AuthenticationScheme
         );
     }
-
-    [Authorize, FormValueRequired("submit.Deny")]
-    [HttpPost("~/connect/authorize"), ValidateAntiForgeryToken]
-    // Notify OpenIddict that the authorization grant has been denied by the resource owner
-    // to redirect the user agent to the client application using the appropriate response_mode.
-    public IActionResult Deny() =>
-        Forbid(Errors.AccessDenied, errorDescription: "The user denied the authorization request.");
 
     [HttpPost("logout"), HttpGet("logout")]
     public async Task<IActionResult> LogoutPost()
@@ -400,10 +268,6 @@ public class AuthorizationController : Controller
     // dùng email để lấy user sẽ dễ test khi dùng với in memory db, vì thông tin user sẽ dc seed lại khi run app và id sẽ khác nhau
     private Task<ApplicationUser?> GetUserFromPrincipalAsync(ClaimsPrincipal principal)
     {
-        // var user =
-        //     _userManager.GetUserAsync(principal);
-
-        // ClaimTypes là của asp.net , còn claims là của openIddict
         var email =
             principal.GetClaim(ClaimTypes.Email)
             ?? principal.GetClaim(Claims.Email)

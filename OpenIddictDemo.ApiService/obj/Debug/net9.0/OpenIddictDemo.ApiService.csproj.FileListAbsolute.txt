@@ -99,3 +99,4 @@
 /home/haylachoi/workspaces/test/OpenIddictDemo/OpenIddictDemo.ApiService/bin/Debug/net9.0/OpenIddict.Validation.SystemNetHttp.dll
 /home/haylachoi/workspaces/test/OpenIddictDemo/OpenIddictDemo.ApiService/bin/Debug/net9.0/Polly.dll
 /home/haylachoi/workspaces/test/OpenIddictDemo/OpenIddictDemo.ApiService/bin/Debug/net9.0/Polly.Extensions.Http.dll
+/home/haylachoi/workspaces/test/OpenIddictDemo/OpenIddictDemo.ApiService/obj/Debug/net9.0/OpenIddictDemo.ApiService.sourcelink.json

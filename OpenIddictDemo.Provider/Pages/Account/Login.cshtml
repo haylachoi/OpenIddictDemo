@@ -21,13 +21,6 @@
 
     <button type="submit">Đăng nhập</button>
 
-    @{
-        var returnUrl = Model.ReturnUrl ?? "/";
-        var encodedReturnUrl = System.Net.WebUtility.UrlEncode(returnUrl);
-    }
-    <a class="btn btn-outline-dark" href="/challenge/github?returnUrl=@encodedReturnUrl">
-        Đăng nhập với GitHub
-    </a>
 </form>
 
 @if (!ModelState.IsValid)
