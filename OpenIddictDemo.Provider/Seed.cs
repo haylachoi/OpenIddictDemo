@@ -31,7 +31,7 @@ public static class DbInitializer
                 UserName = "admin",
                 Email = email,
                 EmailConfirmed = true,
-                Signatrue = "hehe hoho",
+                Signature = "hehe hoho",
             };
 
             var result = await userManager.CreateAsync(newUser, "Admin@123456789"); // đặt mật khẩu ở đây

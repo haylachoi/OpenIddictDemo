@@ -1,8 +1,6 @@
 using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Diagnostics;
 using OpenIddictDemo.Provider;
 using OpenIddictDemo.Provider.Data;
 using OpenIddictDemo.Provider.Models;
@@ -71,8 +69,6 @@ builder
             .SetAuthorizationEndpointUris("/connect/authorize")
             .SetTokenEndpointUris("/connect/token")
             .SetIntrospectionEndpointUris("/connect/introspect")
-            // .SetDeviceAuthorizationEndpointUris("/connect/device")
-            // .SetEndUserVerificationEndpointUris("/connect/verify")
             .SetUserInfoEndpointUris("/connect/userinfo")
             .SetEndSessionEndpointUris("/connect/logout")
             .SetRevocationEndpointUris("/connect/revoke");
@@ -106,7 +102,6 @@ builder
         // options.DisableResourceValidation();
 
         options
-            // .AllowDeviceAuthorizationFlow()
             .AllowAuthorizationCodeFlow()
             .AllowClientCredentialsFlow()
             .AllowPasswordFlow()
@@ -124,6 +119,7 @@ builder
             .EnableAuthorizationEndpointPassthrough()
             .EnableTokenEndpointPassthrough()
             .EnableEndSessionEndpointPassthrough()
+            .EnableUserInfoEndpointPassthrough()
             .EnableStatusCodePagesIntegration();
 
         // bật chế độ “reference token” cho Refresh Token, thay vì chế độ mặc định là self-contained token.

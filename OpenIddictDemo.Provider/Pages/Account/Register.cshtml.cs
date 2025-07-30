@@ -34,7 +34,7 @@ public class RegisterModel : PageModel
         {
             UserName = Input.Email,
             Email = Input.Email,
-            Signatrue = "hehe",
+            Signature = "hehe",
         };
 
         var result = await _userManager.CreateAsync(user, Input.Password);

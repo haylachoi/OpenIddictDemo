@@ -354,6 +354,71 @@ public class AuthorizationController : Controller
         );
     }
 
+    // GET: /api/userinfo
+    [Authorize(AuthenticationSchemes = OpenIddictServerAspNetCoreDefaults.AuthenticationScheme)]
+    [HttpGet("userinfo"), HttpPost("userinfo"), Produces("application/json")]
+    public async Task<IActionResult> Userinfo()
+    {
+        var user = await GetUserFromPrincipalAsync(User);
+        if (user == null)
+        {
+            return Challenge(
+                authenticationSchemes: OpenIddictServerAspNetCoreDefaults.AuthenticationScheme,
+                properties: new AuthenticationProperties(
+                    new Dictionary<string, string?>
+                    {
+                        [OpenIddictServerAspNetCoreConstants.Properties.Error] =
+                            Errors.InvalidToken,
+                        [OpenIddictServerAspNetCoreConstants.Properties.ErrorDescription] =
+                            "The specified access token is bound to an account that no longer exists.",
+                    }
+                )
+            );
+        }
+
+        var claims = new Dictionary<string, object>(StringComparer.Ordinal)
+        {
+            // Note: the "sub" claim is a mandatory claim and must be included in the JSON response.
+            [Claims.Subject] = user.Id,
+        };
+
+        if (User.HasScope(Scopes.Email))
+        {
+            claims[Claims.Email] = user.Email;
+            claims[Claims.EmailVerified] = await _userManager.IsEmailConfirmedAsync(user);
+        }
+
+        if (User.HasScope(Scopes.Phone))
+        {
+            claims[Claims.PhoneNumber] = await _userManager.GetPhoneNumberAsync(user);
+            claims[Claims.PhoneNumberVerified] = await _userManager.IsPhoneNumberConfirmedAsync(
+                user
+            );
+        }
+
+        if (User.HasScope(Scopes.Roles))
+        {
+            claims[Claims.Role] = await _userManager.GetRolesAsync(user);
+        }
+
+        if (User.HasScope(Scopes.Profile))
+        {
+            claims[Claims.Name] = user.FullName ?? $"{user.FirstName} {user.LastName}";
+            claims[Claims.GivenName] = user.FirstName;
+            claims[Claims.FamilyName] = user.LastName;
+            claims[Claims.PreferredUsername] = user.UserName;
+            claims[Claims.Birthdate] = user.BirthDate?.ToString("yyyy-MM-dd");
+            claims[Claims.Gender] = user.Gender; // assuming "male" / "female" / "other"
+            claims[Claims.Locale] = user.Locale; // e.g. "vi-VN"
+            claims[Claims.UpdatedAt] = user.UpdatedAt.ToString();
+        }
+
+        // Note: the complete list of standard claims supported by the OpenID Connect specification
+        // can be found here: http://openid.net/specs/openid-connect-core-1_0.html#StandardClaims
+
+        return Ok(claims);
+    }
+
     private ForbidResult Forbid(string error, string errorDescription) =>
         Forbid(
             authenticationSchemes: OpenIddictServerAspNetCoreDefaults.AuthenticationScheme,
@@ -410,7 +475,7 @@ public class AuthorizationController : Controller
             .SetClaim(Claims.Email, emailTask.Result)
             .SetClaim(Claims.Name, userNameTask.Result)
             .SetClaim(Claims.PreferredUsername, userNameTask.Result)
-            .SetClaim("signatrue", user.Signatrue)
+            .SetClaim("signatrue", user.Signature)
             .SetClaims(Claims.Role, [.. rolesTask.Result]);
 
         if (scopes is not null)
