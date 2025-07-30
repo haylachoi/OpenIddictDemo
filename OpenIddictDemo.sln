@@ -1,4 +1,5 @@
-﻿Microsoft Visual Studio Solution File, Format Version 12.00
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.0.0
 MinimumVisualStudioVersion = 17.8.0.0
@@ -6,11 +7,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenIddictDemo.AppHost", "O
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenIddictDemo.ServiceDefaults", "OpenIddictDemo.ServiceDefaults\OpenIddictDemo.ServiceDefaults.csproj", "{EEAF59C5-9CB9-4EE2-B104-4A5755CA060E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenIddictDemo.ApiService", "OpenIddictDemo.ApiService\OpenIddictDemo.ApiService.csproj", "{422F50DB-B27E-42AA-B0C3-429E132F817C}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenIddictDemo.Web", "OpenIddictDemo.Web\OpenIddictDemo.Web.csproj", "{2BE0FF8A-096E-4CD4-B623-AEC28C424171}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenIddictDemo.Provider", "OpenIddictDemo.Provider\OpenIddictDemo.Provider.csproj", "{434E5E42-D7E6-4132-AB2A-64E62AE5F9B0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenIddictDemo.Device", "OpenIddictDemo.Device\OpenIddictDemo.Device.csproj", "{B15E7466-4C64-4872-9FD4-44C023809142}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -26,18 +25,14 @@ Global
 		{EEAF59C5-9CB9-4EE2-B104-4A5755CA060E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EEAF59C5-9CB9-4EE2-B104-4A5755CA060E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EEAF59C5-9CB9-4EE2-B104-4A5755CA060E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{422F50DB-B27E-42AA-B0C3-429E132F817C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{422F50DB-B27E-42AA-B0C3-429E132F817C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{422F50DB-B27E-42AA-B0C3-429E132F817C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{422F50DB-B27E-42AA-B0C3-429E132F817C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2BE0FF8A-096E-4CD4-B623-AEC28C424171}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2BE0FF8A-096E-4CD4-B623-AEC28C424171}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2BE0FF8A-096E-4CD4-B623-AEC28C424171}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2BE0FF8A-096E-4CD4-B623-AEC28C424171}.Release|Any CPU.Build.0 = Release|Any CPU
 		{434E5E42-D7E6-4132-AB2A-64E62AE5F9B0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{434E5E42-D7E6-4132-AB2A-64E62AE5F9B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{434E5E42-D7E6-4132-AB2A-64E62AE5F9B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{434E5E42-D7E6-4132-AB2A-64E62AE5F9B0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B15E7466-4C64-4872-9FD4-44C023809142}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B15E7466-4C64-4872-9FD4-44C023809142}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B15E7466-4C64-4872-9FD4-44C023809142}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B15E7466-4C64-4872-9FD4-44C023809142}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

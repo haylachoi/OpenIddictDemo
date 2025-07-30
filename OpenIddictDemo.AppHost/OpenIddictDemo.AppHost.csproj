@@ -11,9 +11,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\OpenIddictDemo.ApiService\OpenIddictDemo.ApiService.csproj" />
+    <ProjectReference Include="../OpenIddictDemo.Device/OpenIddictDemo.Device.csproj" />
     <ProjectReference Include="..\OpenIddictDemo.Provider\OpenIddictDemo.Provider.csproj" />
-    <ProjectReference Include="..\OpenIddictDemo.Web\OpenIddictDemo.Web.csproj" />
   </ItemGroup>
 
   <ItemGroup>

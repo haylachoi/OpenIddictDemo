@@ -1,6 +1,18 @@
-@OpenIddictDemo.Provider_HostAddress = http://localhost:5236
+@provider = https://localhost:7023
+@device_code = 1c3UMPeNDKB7HY8IWq_7REGasNtPjNaXJOTwOSd0DbQ
+@grant_type = urn:ietf:params:oauth:grant-type:device_code
 
-GET {{OpenIddictDemo.Provider_HostAddress}}/weatherforecast/
-Accept: application/json
+
+####
+POST {{provider}}/connect/device
+Content-Type: application/x-www-form-urlencoded
+
+client_id=device&scope=email profile offline_access
+
+
 
 ###
+POST {{provider}}/connect/token
+Content-Type: application/x-www-form-urlencoded
+
+client_id=device&device_code={{device_code}}&grant_type={{grant_type}}

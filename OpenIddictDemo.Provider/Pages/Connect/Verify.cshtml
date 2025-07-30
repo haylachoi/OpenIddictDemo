@@ -1,0 +1,46 @@
+﻿@page
+@model OpenIddictDemo.Provider.Pages.Connect.VerifyModel
+<div class="jumbotron">
+  <h1>Authorization</h1>
+
+  @if (string.IsNullOrEmpty(Model.UserCode) || !string.IsNullOrEmpty(Model.Error))
+  {
+    @if (!string.IsNullOrEmpty(Model.Error) && !string.IsNullOrEmpty(Model.ErrorDescription))
+    {
+      <p class="lead text-center alert alert-warning">
+        An error occurred: <br />
+        @Model.ErrorDescription (@Model.Error)
+      </p>
+    }
+
+    <p class="lead text-left">Enter the user code given by the client application:</p>
+
+    <form method="get">
+      <input class="form-control" name="user_code" type="text" />
+      <input class="btn btn-lg btn-success" type="submit" value="Submit" />
+    </form>
+  }
+  else
+  {
+    <p class="lead text-left">Do you want to grant <strong>@Model.ApplicationName</strong> access to your data? (scopes
+      requested: @Model.Scope)</p>
+    <p class="lead text-center alert alert-warning">
+      Make sure that the code displayed on the device is <strong>@Model.UserCode</strong>.
+      <br />
+      If the two codes don't match, press "No" to reject the authorization demand.
+    </p>
+
+    <form method="post">
+      @* Flow the request parameters so they can be received by the VerifyAccept/VerifyReject actions: *@
+      @foreach (var parameter in HttpContext.Request.HasFormContentType
+          ? (IEnumerable<KeyValuePair<string, Microsoft.Extensions.Primitives.StringValues>>)HttpContext.Request.Form
+          : HttpContext.Request.Query)
+      {
+        <input type="hidden" name="@parameter.Key" value="@parameter.Value" />
+      }
+
+      <button type="submit" asp-page-handler="Accept" class="btn btn-primary">Allow</button>
+      <button type="submit" asp-page-handler="Deny" class="btn btn-secondary">Deny</button>
+    </form>
+  }
+</div>

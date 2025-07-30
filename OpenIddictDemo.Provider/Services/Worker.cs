@@ -27,67 +27,66 @@ public class Worker : IHostedService
     {
         var manager = provider.GetRequiredService<IOpenIddictApplicationManager>();
 
-        if (await manager.FindByClientIdAsync("web-client") is null)
-        {
-            await manager.CreateAsync(
-                new OpenIddictApplicationDescriptor
-                {
-                    ClientId = "web-client",
-                    ClientSecret = "web-client-secret",
-                    ConsentType = ConsentTypes.Explicit,
-                    DisplayName = "Web Client Application",
-                    PostLogoutRedirectUris =
-                    {
-                        new Uri("http://localhost:5236/signout-callback-oidc"),
-                        new Uri("https://localhost:7274/signout-callback-oidc"),
-                        new Uri("https://localhost:7274"),
-                    },
-                    RedirectUris =
-                    {
-                        new Uri("https://localhost:7023"),
-                        new Uri("https://localhost:7274/callback/login"),
-                        new Uri("https://localhost:7274/signin-oidc"),
-                        new Uri("https://oidcdebugger.com/debug"),
-                    },
-                    Permissions =
-                    {
-                        Permissions.Endpoints.Authorization,
-                        Permissions.Endpoints.EndSession,
-                        Permissions.Endpoints.Token,
-                        Permissions.GrantTypes.AuthorizationCode,
-                        Permissions.GrantTypes.RefreshToken,
-                        Permissions.ResponseTypes.Code,
-                        Permissions.Scopes.Email,
-                        Permissions.Scopes.Profile,
-                        Permissions.Scopes.Roles,
-                        Permissions.Prefixes.Scope + "api",
-                    },
-                    // Requirements = { Requirements.Features.ProofKeyForCodeExchange },
-                }
-            );
-        }
+        // if (await manager.FindByClientIdAsync("web-client") is null)
+        // {
+        //     await manager.CreateAsync(
+        //         new OpenIddictApplicationDescriptor
+        //         {
+        //             ClientId = "web-client",
+        //             ClientSecret = "web-client-secret",
+        //             ConsentType = ConsentTypes.Explicit,
+        //             DisplayName = "Web Client Application",
+        //             PostLogoutRedirectUris =
+        //             {
+        //                 new Uri("http://localhost:5236/signout-callback-oidc"),
+        //                 new Uri("https://localhost:7274/signout-callback-oidc"),
+        //                 new Uri("https://localhost:7274"),
+        //             },
+        //             RedirectUris =
+        //             {
+        //                 new Uri("https://localhost:7023"),
+        //                 new Uri("https://localhost:7274/callback/login"),
+        //                 new Uri("https://localhost:7274/signin-oidc"),
+        //                 new Uri("https://oidcdebugger.com/debug"),
+        //             },
+        //             Permissions =
+        //             {
+        //                 Permissions.Endpoints.Authorization,
+        //                 Permissions.Endpoints.EndSession,
+        //                 Permissions.Endpoints.Token,
+        //                 Permissions.Endpoints.DeviceAuthorization,
+        //                 Permissions.GrantTypes.DeviceCode,
+        //                 Permissions.GrantTypes.AuthorizationCode,
+        //                 Permissions.GrantTypes.RefreshToken,
+        //                 Permissions.ResponseTypes.Code,
+        //                 Permissions.Scopes.Email,
+        //                 Permissions.Scopes.Profile,
+        //                 Permissions.Scopes.Roles,
+        //                 Permissions.Prefixes.Scope + "api",
+        //             },
+        //             // Requirements = { Requirements.Features.ProofKeyForCodeExchange },
+        //         }
+        //     );
+        // }
 
-        // Register a machine-to-machine client for API access
-        if (await manager.FindByClientIdAsync("api-client") is null)
+        if (await manager.FindByClientIdAsync("device") == null)
         {
             await manager.CreateAsync(
                 new OpenIddictApplicationDescriptor
                 {
-                    ClientId = "api-client",
-                    ClientSecret = "api-client-secret",
-                    // ConsentType = ConsentTypes.Implicit,
-                    DisplayName = "API Client Application",
+                    ClientId = "device",
+                    ClientType = ClientTypes.Public,
+                    ConsentType = ConsentTypes.Explicit,
+                    DisplayName = "Device client",
                     Permissions =
                     {
+                        Permissions.GrantTypes.DeviceCode,
+                        Permissions.GrantTypes.RefreshToken,
+                        Permissions.Endpoints.DeviceAuthorization,
+                        Permissions.Endpoints.Token,
                         Permissions.Scopes.Email,
                         Permissions.Scopes.Profile,
                         Permissions.Scopes.Roles,
-                        Permissions.Endpoints.Token,
-                        Permissions.GrantTypes.ClientCredentials,
-                        Permissions.GrantTypes.RefreshToken,
-                        Permissions.Prefixes.Scope + "api",
-                        Permissions.Endpoints.Introspection,
-                        Permissions.Endpoints.Revocation,
                     },
                 }
             );

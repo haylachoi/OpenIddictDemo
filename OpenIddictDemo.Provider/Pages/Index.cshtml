@@ -9,7 +9,7 @@
     {
         <h1 class="display-4">Welcome, @User.Identity.Name!</h1>
         <p>You are logged in.</p>
-        <form method="post" asp-controller="Account" asp-action="Logout">
+        <form method="post" asp-Controller="Authorization" asp-action="LogoutPost">
             <button type="submit" class="btn btn-danger">Logout</button>
         </form>
     }
@@ -17,7 +17,7 @@
     {
         <h1 class="display-4">Welcome</h1>
         <p>
-            Please <a asp-controller="Account" asp-action="Login">log in</a> to access more features.<br />
+            Please <a asp-page="/Account/Login">log in</a> to access more features.<br />
             Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.
         </p>
     }

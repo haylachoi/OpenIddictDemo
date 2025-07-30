@@ -28,7 +28,7 @@ public class LoginModel : PageModel
     [BindProperty]
     public string? ReturnUrl { get; set; }
 
-    public IActionResult OnGet(string returnUrl)
+    public IActionResult OnGet(string? returnUrl)
     {
         ReturnUrl = returnUrl;
         return Page();
